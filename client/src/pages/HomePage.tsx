@@ -8,13 +8,14 @@ export const HomePage = () => {
   return (
     <MuiLocalizationProvider>
       <Box sx={{ width: 1, textAlign: 'center', mb: 4 }}>
-        <Typography variant="h1">Welcome!</Typography>
+        <Typography variant="h2">Welcome to Appointment Booking</Typography>
         <Button
           variant="contained"
           color="primary"
+          sx={{ mt: 4 }}
           onClick={() => navigate('/book-slot')}
         >
-          Book a Slot
+          Book an Appointment
         </Button>
         <Outlet />
       </Box>

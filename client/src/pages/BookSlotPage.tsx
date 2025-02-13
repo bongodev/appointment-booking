@@ -1,17 +1,10 @@
-import {
-  Button,
-  Container,
-  Grid2,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Button, Container, Grid2, Paper, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
+import { useSlots } from '@/api/queries';
 import moment from 'moment';
-import { useState } from 'react';
 
 export const BookSlotPage = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const { slots, selectedDate, setSelectedDate } = useSlots();
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Grid2
@@ -42,25 +35,31 @@ export const BookSlotPage = () => {
           </Paper>
         </Grid2>
 
-        <Grid2 size={{ xs: 12, md: 6 }} paddingX={{ xs: 0, md: 4 }}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <Paper elevation={3} sx={{ p: 4 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
               Available Slots
             </Typography>
-            <Stack
-              direction={{ xs: 'column', md: 'row' }}
-              sx={{ flexWrap: 'wrap', gap: 3 }}
-            >
-              <Button variant="outlined" size="medium">
-                Slot 1
-              </Button>
-              <Button variant="outlined" size="medium">
-                Slot 2
-              </Button>
-              <Button variant="outlined" size="medium">
-                Slot 3
-              </Button>
-            </Stack>
+            <Grid2 container spacing={3}>
+              {slots.map((slot) => (
+                <Grid2 key={slot._id} size={{ xs: 12, md: 6 }}>
+                  <Paper elevation={2} sx={{ p: 2 }}>
+                    <Typography variant="h6">{slot.name}</Typography>
+                    <Typography variant="body2">{slot.description}</Typography>
+                    <Typography variant="body2" sx={{ mb: 2 }}>
+                      {moment(slot.date).format('MMM DD, YYYY')} |{' '}
+                      {slot.startTime} -{' '}
+                      {moment(slot.date)
+                        .add(slot.duration, 'minutes')
+                        .format('hh:mm A')}
+                    </Typography>
+                    <Button variant="contained" color="primary">
+                      Book Slot
+                    </Button>
+                  </Paper>
+                </Grid2>
+              ))}
+            </Grid2>
           </Paper>
         </Grid2>
       </Grid2>
