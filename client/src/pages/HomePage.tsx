@@ -7,7 +7,7 @@ export const HomePage = () => {
 
   return (
     <MuiLocalizationProvider>
-      <Box sx={{ width: '100%', textAlign: 'center' }}>
+      <Box sx={{ width: 1, textAlign: 'center', mb: 4 }}>
         <Typography variant="h1">Welcome!</Typography>
         <Button
           variant="contained"
