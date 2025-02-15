@@ -41,24 +41,29 @@ export const BookSlotPage = () => {
               Available Slots
             </Typography>
             <Grid2 container spacing={3}>
-              {slots.map((slot) => (
-                <Grid2 key={slot._id} size={{ xs: 12, md: 6 }}>
+                {slots.length > 0 ? (
+                slots.map((slot) => (
+                  <Grid2 key={slot._id} size={{ xs: 12, md: 6 }}>
                   <Paper elevation={2} sx={{ p: 2 }}>
                     <Typography variant="h6">{slot.name}</Typography>
                     <Typography variant="body2">{slot.description}</Typography>
                     <Typography variant="body2" sx={{ mb: 2 }}>
-                      {moment(slot.date).format('MMM DD, YYYY')} |{' '}
-                      {slot.startTime} -{' '}
-                      {moment(slot.date)
-                        .add(slot.duration, 'minutes')
-                        .format('hh:mm A')}
+                    {moment(slot.startTime, 'HH:mm').format('hh:mm A')} -{' '}
+                    {moment(slot.startTime, 'HH:mm')
+                      .add(slot.duration, 'minutes')
+                      .format('hh:mm A')}
                     </Typography>
                     <Button variant="contained" color="primary">
-                      Book Slot
+                    Book Slot
                     </Button>
                   </Paper>
-                </Grid2>
-              ))}
+                  </Grid2>
+                ))
+                ) : (
+                  <Paper elevation={2} sx={{ p: 2, width: '100%' }}>
+                    <Typography variant="body1">No slots available</Typography>
+                  </Paper>
+                )}
             </Grid2>
           </Paper>
         </Grid2>
