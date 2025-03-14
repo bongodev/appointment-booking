@@ -1,16 +1,24 @@
-const express = require('express');
+import cors from 'cors';
+import express from 'express';
+
+import { config } from './config/index.js';
+import connectDB from './db.js';
+import configureRouter from './routers/index.js';
+import { errorHandler } from './middlewares/index.js';
+
+const port = config.PORT;
+
 const app = express();
-const port = 5000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(cors(config.CORS));
+app.use(express.json());
 
-app.get('/_status', (req, res) => {
-  res.send('Test!');
-});
+connectDB();
+
+configureRouter(app);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-

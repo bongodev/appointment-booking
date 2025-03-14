@@ -1,0 +1,19 @@
+services:
+  mongo:
+    image: mongo
+    container_name: ap-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - ./.data/data:/data/db
+      - ./.data/config:/data/configdb
+
+volumes:
+  data:
+    driver: local
+  config:
+    driver: local
