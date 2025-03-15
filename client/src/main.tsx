@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import { BookSlotPage, HomePage, SignupPage } from './pages';
+import { BookSlotPage, HomePage, LoginPage, SignupPage } from './pages';
 import QueryProvider from './providers/QueryProvider';
 
 import './index.css';
@@ -15,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/" element={<HomePage />}>
             <Route path="/book-slot" element={<BookSlotPage />} />
           </Route>
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </BrowserRouter>

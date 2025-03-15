@@ -10,4 +10,7 @@ export const config = {
   CORS: {
     ORIGIN: process.env.CORS_ORIGIN,
   },
+  AUTH: {
+    JWT_SECRET: process.env.JWT_SECRET,
+  },
 };

@@ -1,3 +1,4 @@
+import authRouter from './auth.js';
 import signupRouter from './signup.js';
 import userRouter from './userRoute.js';
 
@@ -6,6 +7,7 @@ const configureRouter = (app) => {
     res.send('OK');
   });
 
+  app.use('/api/auth', authRouter);
   app.use('/api/signup', signupRouter);
   app.use('/api/users', userRouter);
 };

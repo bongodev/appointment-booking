@@ -1,7 +1,7 @@
 import React from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Box,
   Button,
@@ -11,34 +11,44 @@ import {
   Paper,
   InputAdornment,
   IconButton,
-  FormHelperText,
+  Link,
+  Grid,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { type SignupFormData, signupSchema } from '@/schema';
-import { useSignUp } from '@/api/queries';
+import { type LoginFormData, loginSchema } from '@/schema';
+import { useLogin } from '@/hooks';
 
-export const SignupPage = () => {
+// Define the schema using Zod
+
+const LoginPage = () => {
   const navigate = useNavigate();
-  const signupMutation = useSignUp();
+  const { login } = useLogin();
   const [showPassword, setShowPassword] = React.useState(false);
 
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignupFormData>({
-    resolver: zodResolver(signupSchema),
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
-      name: '',
       email: '',
-      mobile: '',
       password: '',
+      rememberMe: false,
     },
   });
 
-  const onSubmit = async (data: SignupFormData) => {
-    await signupMutation.mutateAsync(data);
-    navigate('/login');
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      // Replace with actual API call
+      await login(data.email, data.password);
+      navigate('/');
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('Login failed. Please check your credentials and try again.');
+    }
   };
 
   const handleClickShowPassword = () => {
@@ -49,7 +59,7 @@ export const SignupPage = () => {
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ mt: 8, p: 4 }}>
         <Typography component="h1" variant="h4" align="center" gutterBottom>
-          Create Account
+          Log In
         </Typography>
 
         <Box
@@ -58,25 +68,6 @@ export const SignupPage = () => {
           noValidate
           sx={{ mt: 3 }}
         >
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Full Name"
-                autoComplete="name"
-                autoFocus
-                error={Boolean(errors.name)}
-                helperText={errors.name?.message}
-              />
-            )}
-          />
-
           <Controller
             name="email"
             control={control}
@@ -89,27 +80,9 @@ export const SignupPage = () => {
                 id="email"
                 label="Email Address"
                 autoComplete="email"
-                error={Boolean(errors.email)}
+                autoFocus
+                error={!!errors.email}
                 helperText={errors.email?.message}
-              />
-            )}
-          />
-
-          <Controller
-            name="mobile"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                margin="normal"
-                required
-                fullWidth
-                id="mobile"
-                label="Mobile Number"
-                placeholder="+8801234567"
-                autoComplete="tel"
-                error={Boolean(errors.mobile)}
-                helperText={errors.mobile?.message}
               />
             )}
           />
@@ -126,8 +99,8 @@ export const SignupPage = () => {
                 id="password"
                 label="Password"
                 type={showPassword ? 'text' : 'password'}
-                autoComplete="new-password"
-                error={Boolean(errors.password)}
+                autoComplete="current-password"
+                error={!!errors.password}
                 helperText={errors.password?.message}
                 InputProps={{
                   endAdornment: (
@@ -146,10 +119,31 @@ export const SignupPage = () => {
             )}
           />
 
-          <FormHelperText>
-            Password must be at least 8 characters with uppercase, lowercase,
-            number and special character
-          </FormHelperText>
+          <Grid container alignItems="center" justifyContent="space-between">
+            <Grid item>
+              <Controller
+                name="rememberMe"
+                control={control}
+                render={({ field }) => (
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        {...field}
+                        checked={field.value}
+                        color="primary"
+                      />
+                    }
+                    label="Remember me"
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+          </Grid>
 
           <Button
             type="submit"
@@ -158,10 +152,23 @@ export const SignupPage = () => {
             sx={{ mt: 3, mb: 2, py: 1.5 }}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+            {isSubmitting ? 'Logging In...' : 'Log In'}
           </Button>
+
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Typography variant="body2" align="center">
+                Don't have an account?{' '}
+                <Link href="/signup" variant="body2">
+                  Sign Up
+                </Link>
+              </Typography>
+            </Grid>
+          </Grid>
         </Box>
       </Paper>
     </Container>
   );
 };
+
+export default LoginPage;
