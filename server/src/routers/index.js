@@ -1,3 +1,5 @@
+import { authenticate } from '../middlewares/index.js';
+
 import authRouter from './auth.js';
 import signupRouter from './signup.js';
 import userRouter from './userRoute.js';
@@ -9,7 +11,7 @@ const configureRouter = (app) => {
 
   app.use('/api/auth', authRouter);
   app.use('/api/signup', signupRouter);
-  app.use('/api/users', userRouter);
+  app.use('/api/users', authenticate, userRouter);
 };
 
 export default configureRouter;
