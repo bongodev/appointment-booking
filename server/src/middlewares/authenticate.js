@@ -15,7 +15,7 @@ export default function authenticate(req, res, next) {
     if (err) {
       return res.status(401).json({ message: 'invalid auth token' });
     }
-    res.user = payload;
+    req.user = payload;
     next();
   });
 }
