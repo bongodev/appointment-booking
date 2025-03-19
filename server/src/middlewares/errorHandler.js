@@ -1,5 +1,8 @@
 import { z } from 'zod';
 import mongoose from 'mongoose';
+import { logger } from '../config/index.js';
+
+
 
 const errorHandler = (err, req, res, next) => {
   if (err instanceof z.ZodError) {
@@ -13,7 +16,7 @@ const errorHandler = (err, req, res, next) => {
     return res.status(400).send(err.message);
   }
 
-  console.error(err.stack);
+  logger.error(err.stack);
   res.status(500).send('Internal server error');
 };
 
