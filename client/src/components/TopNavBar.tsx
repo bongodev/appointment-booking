@@ -1,20 +1,23 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+  Typography,
+  MenuIcon,
+  Logo,
+} from '@/ui';
+
 import { useState } from 'react';
 import { appConfig } from '@/config';
 
-const pages = ['Contact', 'About Us'];
+const pages = ['Contact Us', 'About Us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function TopNavBar() {
@@ -49,7 +52,7 @@ export default function TopNavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Logo sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -65,7 +68,7 @@ export default function TopNavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Appointify
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -102,7 +105,7 @@ export default function TopNavBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Logo sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -119,9 +122,16 @@ export default function TopNavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Appointify
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'center',
+              gap: 4,
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
