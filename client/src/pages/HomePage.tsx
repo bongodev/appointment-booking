@@ -1,13 +1,17 @@
 import { Outlet, useNavigate } from 'react-router';
 import { Box, Button, Typography } from '@mui/material';
 import { MuiLocalizationProvider } from '@/providers';
+import { TopNavBar } from '@/components';
 
 export const HomePage = () => {
   const navigate = useNavigate();
 
   return (
     <MuiLocalizationProvider>
-      <Box sx={{ width: 1, textAlign: 'center', my: 4 }}>
+      <Box>
+        <TopNavBar />
+      </Box>
+      <Box sx={{ width: 1, textAlign: 'center', my: 6 }}>
         <Typography variant="h2">Welcome to Appointment Booking</Typography>
         <Button
           variant="contained"
