@@ -7,5 +7,7 @@ export const signup = async ({ name, email, mobile, password }) => {
     mobile,
     password,
   });
-  return user.save();
+  await user.save();
+  user.password = undefined;
+  return user;
 };
