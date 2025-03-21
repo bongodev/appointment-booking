@@ -18,6 +18,6 @@ export const deleteRoleById = async (id) => {
   return await Role.findOneAndUpdate(
     { _id: id },
     { deleted: true, deletedAt: new Date() },
-    { new: true }
+    { new: true },
   );
 };

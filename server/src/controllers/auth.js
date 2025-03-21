@@ -45,7 +45,7 @@ const generateAuthToken = (user) => {
     config.AUTH.JWT_SECRET,
     {
       expiresIn: '1m',
-    }
+    },
   );
 
   const refreshToken = jwt.sign(
@@ -53,7 +53,7 @@ const generateAuthToken = (user) => {
     config.AUTH.JWT_SECRET,
     {
       expiresIn: '5m',
-    }
+    },
   );
 
   return { accessToken, refreshToken };
