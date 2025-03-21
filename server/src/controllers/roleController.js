@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import { roleService } from '../services';
+import { roleService } from '../services/index.js';
 
 export const createRole = asyncHandler(async (req, res) => {
   const newRole = await roleService.createRole(req.body);
@@ -11,16 +11,9 @@ export const getAllRoles = asyncHandler(async (req, res) => {
   res.json(roles);
 });
 
-export const getRoleById = asyncHandler(async (req, res) => {
-  const role = await roleService.getRoleById(req.params.id);
-  if (!role) {
-    return res.status(404).json({ error: 'Role not found' });
-  }
-  res.json(role);
-});
-
-export const updateRoleById = asyncHandler(async (req, res) => {
-  const updatedRole = await roleService.updateRoleById(req.params.id, req.body);
+export const updateRole = asyncHandler(async (req, res) => {
+  const { id } = req.params.id;
+  const updatedRole = await roleService.updateRole(id, req.body);
   if (!updatedRole) {
     return res.status(404).json({ error: 'Role not found' });
   }
