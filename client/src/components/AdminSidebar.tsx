@@ -23,17 +23,17 @@ const menuItems = [
   {
     text: 'Dashboard',
     icon: <DashboardIcon />,
-    path: '/',
+    path: '/admin',
   },
   {
     text: 'Slots',
     icon: <EventAvailableIcon />,
-    path: '/slots',
+    path: '/admin/slots',
   },
   {
     text: 'Appointments',
     icon: <ScheduleIcon />,
-    path: '/appointment',
+    path: '/admin/appointments',
   },
 ];
 
@@ -148,7 +148,7 @@ export default function AdminSidebar({ children }: Props) {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 5,
+          my: 10,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >

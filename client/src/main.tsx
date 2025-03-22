@@ -9,6 +9,7 @@ import './index.css';
 import Dashboard from './pages/admin/Dashboard';
 import Slots from './pages/admin/Slots';
 import Appointments from './pages/admin/Appointments';
+import Admin from './pages/admin/Admin';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -20,7 +21,7 @@ createRoot(document.getElementById('root')!).render(
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="admin">
+          <Route path="admin" element={<Admin />}>
             <Route index element={<Dashboard />} />
             <Route path="slots" element={<Slots />} />
             <Route path="appointments" element={<Appointments />} />
