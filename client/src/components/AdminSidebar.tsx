@@ -1,21 +1,21 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-import ScheduleIcon from '@mui/icons-material/Schedule';
 import { NavLink } from 'react-router';
+import {
+  AppBar,
+  Box,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  MenuIcon,
+  Toolbar,
+} from '@/ui';
+import { DashboardIcon, EventAvailableIcon, ScheduleIcon } from '@/ui/Icons';
 
 const drawerWidth = 240;
 

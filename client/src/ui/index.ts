@@ -10,6 +10,14 @@ import {
   Tooltip,
   MenuItem,
   Typography,
+  CssBaseline,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 
 import { MenuIcon, Logo } from './Icons';
@@ -27,5 +35,13 @@ export {
   MenuItem,
   Typography,
   MenuIcon,
-  Logo
+  Logo,
+  CssBaseline,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 };
