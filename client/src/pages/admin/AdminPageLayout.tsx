@@ -5,7 +5,7 @@ type AdminProps = {
   className?: string;
 };
 
-export default function Admin({}: AdminProps) {
+export default function AdminPageLayout({}: AdminProps) {
   return (
     <AdminSidebar>
       <Outlet />
