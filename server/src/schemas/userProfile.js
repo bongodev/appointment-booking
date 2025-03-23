@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { userSchema } from "./user.js"
+import { DateMixin } from "./mixin.js";
 
 export const userProfileSchema = z.object({
     ...userSchema.shape.omit('password'),
@@ -16,6 +17,6 @@ export const userProfileSchema = z.object({
         reminderTime: z.number.default(24),
         preferredDays: z.array(z.string()).optional(),
         preferredTimeofTheDay: z.enum['morning', 'afternoon', 'night'].optional(),
-      })
-
+      }),
+    ...DateMixin.shape,
 })
