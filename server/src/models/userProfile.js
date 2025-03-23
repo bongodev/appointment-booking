@@ -7,6 +7,9 @@ const userProfileSchema = new mongoose.Schema({
         type: User.schema,
         select: (-'password')
      },
+     image: {
+        type: String
+     },
      address : {
         street: String,
         city: String,
@@ -30,7 +33,7 @@ const userProfileSchema = new mongoose.Schema({
             type: Number,
             default: 24 //hours before appointment
         },
-        preferredDays: String,
+        preferredDays: [String],
         preferredTimeofTheDay: {
             type: String,
             enum: ['morning', 'afternoon', 'night']
