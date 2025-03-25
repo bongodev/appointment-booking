@@ -18,7 +18,6 @@ export const getSlot = async ({ page, limit, skips, sort }) => {
   return {
     data: slots,
     pagination: {
-      currentPage: page,
       totalItems: totalSlots,
       totalPages,
       currentPage: page,
