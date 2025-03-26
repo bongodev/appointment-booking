@@ -1,35 +1,37 @@
-import { UserProfile } from "../models"
+import { User, UserProfile } from "../models/index.js"
 
-const createUserProfile = async(payload) =>{
-    const existingProfile = await Profile.findOne({email, mobile });
-    if (existingProfile) {
-      throw new Error('Profile already exists for this user');
-    }
-const newProfile = new UserProfile(payload);
-await newProfile.save();
-return newProfile;
-}
+// const createUserProfile = async(payload, userId) =>{
+// const newProfile = new UserProfile({ user: userId, ...payload });
+// await newProfile.save();
+// return newProfile
+// }
 
 const getUserProfile = async ()=>{
-    const profiles = await UserProfile.find({deleted: false});
+    const profiles = await UserProfile.find({deleted: false}).populate('user', 'name email mobile');
     return profiles;
 }
-const findProfileByUserId = async (userId)=>{
-    const profile = await UserProfile.findOne({_id: userId, deleted: false})
+const  getProfileByUserId = async (profileId)=>{
+    const profile = await UserProfile.findOne({_id: profileId, deleted: false}).populate('user', 'name email mobile')
+    return profile;
 }
 
-const updateUserProfile = async (userId, payload)=>{
-    return await UserProfile.findOneAndUpdate({ _id: userId }, payload);
+const updateUserProfile = async (profileId, payload)=>{
+    return await UserProfile.findOneAndUpdate({ _id: profileId }, payload);
 }
 
-const deleteUserProfile = async (userId) =>{
-    return await UserProfile.findOneAndUpdate({ _id: userId, deleted: true,  deletedAt: new Date()})
+const deleteUserProfile = async (profileId) =>{
+    return await UserProfile.findOneAndUpdate({ _id: profileId, deleted: true,  deletedAt: new Date()})
+}
+
+const getUser = async ()=>{
+    const users = await User.find();
+    return users;
 }
 
 export {
-    createUserProfile,
+    getUser,
     getUserProfile,
-    findProfileByUserId,
+    getProfileByUserId,
     updateUserProfile,
     deleteUserProfile,
 }

@@ -4,8 +4,10 @@ import User from './user.js';
 const userProfileSchema = new mongoose.Schema(
   {
     user: {
-      type: User.schema,
-      select: -'password',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+      // unique: true, 
     },
     image: {
       type: String,
@@ -19,25 +21,10 @@ const userProfileSchema = new mongoose.Schema(
     dateOfBirth: {
       type: Date,
     },
-    preferredContactMethod: {
-      type: String,
-      enum: ['email', 'phone', 'sms'],
+    contact: {
+      type: String,//we will use nested schema for contact schema
+      enum: ["email", "phone", "sms"],
       required: true,
-    },
-    preferences: {
-      appointmentReminders: {
-        type: Boolean,
-        default: true,
-      },
-      reminderTime: {
-        type: Number,
-        default: 24, //hours before appointment
-      },
-      preferredDays: [String],
-      preferredTimeofTheDay: {
-        type: String,
-        enum: ['morning', 'afternoon', 'night'],
-      },
     },
     deleted: {
       type: Boolean,
@@ -50,5 +37,5 @@ const userProfileSchema = new mongoose.Schema(
   }
 );
 
-const UserProfile = mongoose.model('userProfile', userProfileSchema);
+const UserProfile = mongoose.model('UserProfile', userProfileSchema);
 export default UserProfile;
