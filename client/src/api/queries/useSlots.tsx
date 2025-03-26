@@ -9,8 +9,7 @@ export const useSlots = () => {
 
   useEffect(() => {
     setSlots(getSlotsByDate(selectedDate));
-  },[selectedDate]);
-
+  }, [selectedDate]);
 
   const getSlotsByDate = (date: Date | null) => {
     return date

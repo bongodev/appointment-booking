@@ -9,13 +9,14 @@ const slotRouter = express.Router();
 slotRouter.post(
   '/',
   validatePayload(slotSchema.omit({ _id: true })),
-  slotController.createSlot);
+  slotController.createSlot
+);
 slotRouter.get('/', slotController.getSlot);
 slotRouter.put(
   '/:id',
   validatePayload(slotSchema.partial()),
-  slotController.updateSlot);
+  slotController.updateSlot
+);
 slotRouter.delete('/:id', slotController.deleteSlot);
 
 export default slotRouter;
-

@@ -12,15 +12,15 @@ const slotSchema = new mongoose.Schema(
     },
     deleted: {
       type: Boolean,
-      default: false
+      default: false,
     },
     deletedAt: Date,
   },
   {
     timestamps: true,
-  });
+  }
+);
 
 const Slot = mongoose.model('Slot', slotSchema);
 
 export default Slot;
-

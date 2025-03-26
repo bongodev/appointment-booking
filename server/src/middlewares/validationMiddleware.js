@@ -7,4 +7,3 @@ const validatePayload = (schema) => {
 };
 
 export default validatePayload;
-
