@@ -1,36 +1,22 @@
 import asyncHandler from 'express-async-handler';
 import { userProfileServices } from '../services/index.js';
 
-// const createUserProfile = asyncHandler(async (req, res) => {
-//   const { payload } = req.body;
-//   const { userId } = req.user._id;
-//   console.log(req.body);
-//   const profile = await userProfileServices.createUserProfile(userId, payload);
-//   res.status(201).send(profile);
-// });
-
 const getUserProfile = asyncHandler(async (req, res) => {
-
-    const profiles = await userProfileServices.getUserProfile();
-    res.json(profiles);
+  const profiles = await userProfileServices.getUserProfile();
+  res.json(profiles);
 });
-const getUser =asyncHandler(async(req, res)=>{
-  const users= await userProfileServices.getUser()
-  res.json(users)
-})
 
-const getProfileByUserId = asyncHandler(async (req, res) => {
+const getProfileById = asyncHandler(async (req, res) => {
   const { profileId } = req.params;
-  const profile = await userProfileServices.getProfileByUserId(profileId);
+  const profile = await userProfileServices.getProfileById(profileId);
   res.json(profile);
 });
 
 const updateUserProfile = asyncHandler(async (req, res) => {
   const { profileId } = req.params;
-  const { payload } = req.body;
   const updatedProfile = await userProfileServices.updateUserProfile(
     profileId,
-    payload
+    req.body
   );
   res.status(200).send(updatedProfile);
 });
@@ -43,10 +29,14 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
     .json({ message: `Profile with id: ${profileId} successfully deleted` });
 });
 
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await userProfileServices.getUsers(); //For testing purpose
+  res.json(users);
+});
 export {
-  getUser,
   getUserProfile,
-  getProfileByUserId,
+  getProfileById,
   updateUserProfile,
   deleteUserProfile,
+  getUsers
 };

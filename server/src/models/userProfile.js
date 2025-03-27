@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import User from './user.js';
 
 const userProfileSchema = new mongoose.Schema(
   {
@@ -7,7 +6,7 @@ const userProfileSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-      // unique: true, 
+      unique: true,
     },
     image: {
       type: String,
@@ -20,11 +19,6 @@ const userProfileSchema = new mongoose.Schema(
     },
     dateOfBirth: {
       type: Date,
-    },
-    contact: {
-      type: String,//we will use nested schema for contact schema
-      enum: ["email", "phone", "sms"],
-      required: true,
     },
     deleted: {
       type: Boolean,

@@ -1,10 +1,8 @@
 import { z } from 'zod';
-import { userSchema } from './user.js';
 import { DateMixin, IDSchema } from './mixin.js';
 
 export const userProfileSchema = z.object({
   ...IDSchema.shape,
-  // user: z.union([z.string(), userSchema.omit({ password: true })]),
   user: z.string(),
   image: z.string().optional(),
   address: z
@@ -15,7 +13,6 @@ export const userProfileSchema = z.object({
       country: z.string().optional(),
     })
     .optional(),
-  dateOfBirth: z.string().date().optional(),
-  contact: z.enum(['email', 'phone', 'sms']),
+  dateOfBirth: z.string().optional(),
   ...DateMixin.shape,
 });

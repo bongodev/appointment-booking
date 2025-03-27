@@ -18,20 +18,18 @@ export const signup = async ({ name, email, mobile, password }) => {
   await user.save();
 
   if (!user._id) {
-    throw new Error("User ID is missing after saving the user.");
+    throw new Error('User ID is missing after saving the user.');
   }
   const existingProfile = await UserProfile.findOne({ user: user._id });
   if (!existingProfile) {
-    logger.info(`creating user profile for ${user._id} `)
+    logger.info(`creatinguser profile for ${user._id} `);
     const newProfile = new UserProfile({
       user: user._id,
-      address: { street: "", city: "", zipCode: "", country: "" },
+      address: { street: '', city: '', zipCode: '', country: '' },
       dateOfBirth: null,
-      contact: "email",
     });
     await newProfile.save();
   }
-  
 
   const userObject = user.toObject();
   delete userObject.password;

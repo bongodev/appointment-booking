@@ -1,37 +1,49 @@
-import { User, UserProfile } from "../models/index.js"
+import { User, UserProfile } from '../models/index.js';
 
-// const createUserProfile = async(payload, userId) =>{
-// const newProfile = new UserProfile({ user: userId, ...payload });
-// await newProfile.save();
-// return newProfile
-// }
+const getUserProfile = async () => {
+  const profiles = await UserProfile.find({ deleted: false }).populate(
+    'user',
+    'name email mobile'
+  );
+  return profiles;
+};
+const getProfileById = async (profileId) => {
+  const profile = await UserProfile.findOne({
+    _id: profileId,
+    deleted: false,
+  }).populate('user', 'name email mobile');
+  return profile;
+};
 
-const getUserProfile = async ()=>{
-    const profiles = await UserProfile.find({deleted: false}).populate('user', 'name email mobile');
-    return profiles;
-}
-const  getProfileByUserId = async (profileId)=>{
-    const profile = await UserProfile.findOne({_id: profileId, deleted: false}).populate('user', 'name email mobile')
-    return profile;
-}
+const updateUserProfile = async (profileId, payload) => {
+  return await UserProfile.findOneAndUpdate({ _id: profileId }, payload);
+};
 
-const updateUserProfile = async (profileId, payload)=>{
-    return await UserProfile.findOneAndUpdate({ _id: profileId }, payload);
-}
+const deleteUserProfile = async (profileId) => {
+  const profile = await UserProfile.findById(profileId);
+  if (!profile) return { message: 'Profile not found' };
 
-const deleteUserProfile = async (profileId) =>{
-    return await UserProfile.findOneAndUpdate({ _id: profileId, deleted: true,  deletedAt: new Date()})
-}
+  const userId = profile.user;
+  await UserProfile.findOneAndUpdate(
+    { _id: profileId },
+    { deleted: true, deletedAt: new Date() }
+  );
+  await User.findOneAndUpdate(
+    { _id: userId },
+    { deleted: true, deletedAt: new Date() }
+  );
+  return { message: 'User and Profile soft-deleted successfully' };
+};
 
-const getUser = async ()=>{
-    const users = await User.find();
-    return users;
-}
+const getUsers = async () => {
+  const users = await User.find({ deleted: false }); // For testing purpose
+  return users;
+};
 
 export {
-    getUser,
     getUserProfile,
-    getProfileByUserId,
+    getProfileById,
     updateUserProfile,
     deleteUserProfile,
-}
+    getUsers
+};
