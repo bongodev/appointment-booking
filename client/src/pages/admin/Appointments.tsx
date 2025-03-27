@@ -19,12 +19,14 @@ import {
 import UserCard from '@/ui/UserCard';
 import { AppointMentData, Order } from '@/types';
 import { getComparator } from '@/utils/comparators';
+import { useSearchParams } from 'react-router';
 
 export default function Appointments() {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] =
     React.useState<keyof AppointMentData>('clientName');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const visibleRows = React.useMemo(
     () => [...sampleAppointments].sort(getComparator(order, orderBy)),
     [order, orderBy]
@@ -54,6 +56,11 @@ export default function Appointments() {
       : [...selected, clickedRowId];
     setSelected(newSelectedItems);
   };
+
+  function handlePageChange(page: number) {
+    searchParams.set('page', page.toString());
+    setSearchParams(searchParams);
+  }
 
   // Avoid a layout jump when reaching the last page with empty rows.
   // const emptyRows =
@@ -117,20 +124,16 @@ export default function Appointments() {
                         alt={row.clientName}
                       />
                     </TableCell>
-                    <TableCell sx={{ py: 1 }} key={row.date} align='center'>
+                    <TableCell sx={{ py: 1 }} align='center'>
                       {row.date}
                     </TableCell>
-                    <TableCell sx={{ py: 1 }} key={row.time} align='center'>
+                    <TableCell sx={{ py: 1 }} align='center'>
                       {row.time}
                     </TableCell>
-                    <TableCell sx={{ py: 1 }} key={row.time} align='center'>
+                    <TableCell sx={{ py: 1 }} align='center'>
                       {row.status}
                     </TableCell>
-                    <TableCell
-                      sx={{ py: 1 }}
-                      key={row.appointer}
-                      align='center'
-                    >
+                    <TableCell sx={{ py: 1 }} align='center'>
                       <UserCard
                         name={row.appointer}
                         imgSrc={row.appointerImgUrl}
@@ -167,7 +170,12 @@ export default function Appointments() {
             }}
             spacing={2}
           >
-            <Pagination count={20} variant='outlined' shape='rounded' />
+            <Pagination
+              onChange={(_e, page) => handlePageChange(page)}
+              count={20}
+              variant='outlined'
+              shape='rounded'
+            />
           </Stack>
         </TableContainer>
       </Paper>
