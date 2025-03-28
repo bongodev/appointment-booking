@@ -18,13 +18,20 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Paper,
+  Pagination,
+  Stack,
+  TextField,
+  Checkbox,
 } from '@mui/material';
-
+export * from './table';
 import { MenuIcon, Logo } from './Icons';
 
 export {
   AppBar,
   Box,
+  Pagination,
+  Stack,
   Toolbar,
   IconButton,
   Menu,
@@ -44,4 +51,7 @@ export {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Paper,
+  Checkbox,
+  TextField,
 };
