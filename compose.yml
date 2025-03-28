@@ -14,12 +14,9 @@ services:
     ports:
       - 5173:5173
     volumes:
-      - ./client:/code
-      - /code/node_modules 
+      - ./client/src:/code/src
     environment:
       - VITE_BASE_URL=http://ap-server:8000/api
-      - WATCHPACK_POLLING=true
-      - CHOKIDAR_USEPOLLING=true
 
   ap-server:
     build:
