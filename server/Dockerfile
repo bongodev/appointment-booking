@@ -13,6 +13,6 @@ RUN yarn install
 
 COPY . .
 
-EXPOSE 9000
+EXPOSE 8000
 
 CMD [ "sh", "-c", "if [ \"$NODE_ENV\" = \"development\" ]; then yarn dev; else yarn start; fi" ]

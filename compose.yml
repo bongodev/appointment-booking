@@ -1,19 +1,76 @@
+# services:
+#   mongo:
+#     image: mongo
+#     container_name: ap-mongo
+#     restart: always
+#     environment:
+#       MONGO_INITDB_ROOT_USERNAME: root
+#       MONGO_INITDB_ROOT_PASSWORD: example
+#     ports:
+#       - 27017:27017
+#     volumes:
+#       - ./.data/data:/data/db
+#       - ./.data/config:/data/configdb
+
+# volumes:
+#   data:
+#     driver: local
+#   config:
+#     driver: local
+
+
+networks:
+  ap-network:
+
 services:
-  mongo:
-    image: mongo
-    container_name: ap-mongo
-    restart: always
+  ap-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: ap-client
+    networks:
+      - ap-network
+    depends_on:
+      - ap-server
+    ports:
+      - 5173:5173
+    volumes:
+      - ./client/src:/code/src
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      - VITE_BASE_URL=http://ap-server:8000/api
+
+  ap-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      args:
+        - NODE_VERSION=20
+        - ENVIRONMENT=development
+    container_name: ap-server
+    networks:
+      - ap-network
+    depends_on:
+      - ap-mongo
+    ports:
+      - 8000:8000
+    volumes:
+      - ./server/src:/code/src
+    environment:
+      - PORT=8000
+      - MONGO_URI=mongodb://root:example@ap-mongodb:27017/
+      - MONGO_DB=appointment-db
+      - JWT_SECRET=TOPSECRET
+
+  ap-mongo:
+    image: mongo
+    container_name: ap-mongodb
+    networks:
+      - ap-network
     ports:
       - 27017:27017
     volumes:
-      - ./.data/data:/data/db
-      - ./.data/config:/data/configdb
-
-volumes:
-  data:
-    driver: local
-  config:
-    driver: local
+      - ./.mongo-data/data:/data/db
+      - ./.mongo-data/config:/data/configdb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
