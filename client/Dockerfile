@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 5173
 
-CMD [ "yarn", "dev", "--host" ]
+CMD [ "yarn", "dev"]

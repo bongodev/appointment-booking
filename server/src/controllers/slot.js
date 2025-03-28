@@ -34,7 +34,5 @@ export const updateSlot = asyncHandler(async (req, res) => {
 export const deleteSlot = asyncHandler(async (req, res) => {
   const { id } = req.params;
   await slotServices.deleteSlot(id);
-  res
-    .status(200)
-    .json({ message: `Slot with id ${id} is deleted successfully` });
+  res.status(200).json({ message: `Slot with id ${id} is deleted successfully` });
 });

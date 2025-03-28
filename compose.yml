@@ -1,24 +1,3 @@
-# services:
-#   mongo:
-#     image: mongo
-#     container_name: ap-mongo
-#     restart: always
-#     environment:
-#       MONGO_INITDB_ROOT_USERNAME: root
-#       MONGO_INITDB_ROOT_PASSWORD: example
-#     ports:
-#       - 27017:27017
-#     volumes:
-#       - ./.data/data:/data/db
-#       - ./.data/config:/data/configdb
-
-# volumes:
-#   data:
-#     driver: local
-#   config:
-#     driver: local
-
-
 networks:
   ap-network:
 
@@ -35,9 +14,12 @@ services:
     ports:
       - 5173:5173
     volumes:
-      - ./client/src:/code/src
+      - ./client:/code
+      - /code/node_modules 
     environment:
       - VITE_BASE_URL=http://ap-server:8000/api
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
 
   ap-server:
     build:
