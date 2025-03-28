@@ -7,7 +7,7 @@ export const createRole = async (userRole) => {
 };
 
 export const getAllRoles = async () => {
-  return await Role.find();
+  return await Role.find({deleted:false});
 };
 
 export const updateRole = async (id, payload) => {
