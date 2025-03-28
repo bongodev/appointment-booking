@@ -5,6 +5,7 @@ import signupRouter from './signup.js';
 import slotRouter from './slot.js';
 import userRouter from './userRoute.js';
 import roleRouter from './roleRouter.js';
+import appointmentRouter from './appointment.js';
 
 const configureRouter = (app) => {
   app.get('/status', (req, res) => {
@@ -16,6 +17,7 @@ const configureRouter = (app) => {
   app.use('/api/users', authenticate, userRouter);
   app.use('/api/slots', slotRouter);
   app.use('/api/roles', roleRouter);
+  app.use('/api/appointments', appointmentRouter);
 };
 
 export default configureRouter;
