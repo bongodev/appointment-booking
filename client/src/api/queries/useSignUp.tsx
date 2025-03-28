@@ -5,8 +5,7 @@ import { SignupFormData } from '@/schema';
 
 export const useSignUp = () => {
   const singupMutaiton = useMutation({
-    mutationFn: (signUpPayload: SignupFormData) =>
-      http.post('/api/signup', signUpPayload),
+    mutationFn: (signUpPayload: SignupFormData) => http.post('/api/signup', signUpPayload),
     onSuccess: () => {
       alert('Signup successful! Account created.');
     },

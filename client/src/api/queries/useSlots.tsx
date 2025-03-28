@@ -13,9 +13,7 @@ export const useSlots = () => {
 
   const getSlotsByDate = (date: Date | null) => {
     return date
-      ? mockSlots.filter(
-          (slot) => new Date(slot.date).toDateString() === date.toDateString()
-        )
+      ? mockSlots.filter((slot) => new Date(slot.date).toDateString() === date.toDateString())
       : [];
   };
   return { selectedDate, setSelectedDate, slots };

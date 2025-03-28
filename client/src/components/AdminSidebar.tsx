@@ -66,10 +66,7 @@ export default function AdminSidebar({ children }: Props) {
       <Divider />
       <List>
         {menuItems.map((item) => (
-          <NavLink
-            style={{ textDecoration: 'none', color: 'inherit' }}
-            to={item.path}
-          >
+          <NavLink style={{ textDecoration: 'none', color: 'inherit' }} to={item.path}>
             <ListItem key={item.text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>{item.icon}</ListItemIcon>
@@ -86,7 +83,7 @@ export default function AdminSidebar({ children }: Props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position='fixed'
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
@@ -94,9 +91,9 @@ export default function AdminSidebar({ children }: Props) {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
+            color='inherit'
+            aria-label='open drawer'
+            edge='start'
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
@@ -105,13 +102,13 @@ export default function AdminSidebar({ children }: Props) {
         </Toolbar>
       </AppBar>
       <Box
-        component="nav"
+        component='nav'
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+        aria-label='mailbox folders'
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          variant="temporary"
+          variant='temporary'
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
@@ -131,7 +128,7 @@ export default function AdminSidebar({ children }: Props) {
           {drawer}
         </Drawer>
         <Drawer
-          variant="permanent"
+          variant='permanent'
           sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': {
@@ -145,7 +142,7 @@ export default function AdminSidebar({ children }: Props) {
         </Drawer>
       </Box>
       <Box
-        component="main"
+        component='main'
         sx={{
           flexGrow: 1,
           my: 10,

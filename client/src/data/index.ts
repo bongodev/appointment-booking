@@ -385,4 +385,3 @@ export const slotTableRows = [
     saturSlot: '',
   },
 ];
-

@@ -18,16 +18,10 @@ export default function Slots({}: SlotProps) {
   return (
     <Box gap={5}>
       <p>Slots</p>
-      <Button
-        variant='contained'
-        color='primary'
-        sx={{ width: 'auto' }}
-        onClick={handleEditClick}
-      >
+      <Button variant='contained' color='primary' sx={{ width: 'auto' }} onClick={handleEditClick}>
         Edit Slots
       </Button>
       {showSlotTable && <SlotTable userId={userId} />}
     </Box>
   );
 }
-
