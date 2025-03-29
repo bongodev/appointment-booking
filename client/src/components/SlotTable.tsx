@@ -36,7 +36,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function SlotTable({ userId }: SlotTableProps) {
- 
   return (
     <Box sx={{ mt: 2 }}>
       <TableContainer component={Paper}>
@@ -83,16 +82,14 @@ export default function SlotTable({ userId }: SlotTableProps) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Box sx={{ display: 'flex', gap: 2}} >
-
-      <Button variant='contained' color="secondary" >
-           Cancel
-         </Button>
-         <Button variant='contained' color="primary">
-           Save Changes
-         </Button>
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <Button variant='contained' color='secondary'>
+          Cancel
+        </Button>
+        <Button variant='contained' color='primary'>
+          Save Changes
+        </Button>
       </Box>
     </Box>
   );
 }
-

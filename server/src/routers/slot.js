@@ -6,17 +6,9 @@ import { slotSchema } from '../schemas/slot.js';
 
 const slotRouter = express.Router();
 
-slotRouter.post(
-  '/',
-  validatePayload(slotSchema.omit({ _id: true })),
-  slotController.createSlot
-);
+slotRouter.post('/', validatePayload(slotSchema.omit({ _id: true })), slotController.createSlot);
 slotRouter.get('/', slotController.getSlot);
-slotRouter.put(
-  '/:id',
-  validatePayload(slotSchema.partial()),
-  slotController.updateSlot
-);
+slotRouter.put('/:id', validatePayload(slotSchema.partial()), slotController.updateSlot);
 slotRouter.delete('/:id', slotController.deleteSlot);
 
 export default slotRouter;

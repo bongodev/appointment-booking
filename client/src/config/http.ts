@@ -25,9 +25,7 @@ http.interceptors.response.use(
   async (error) => {
     console.log('Token expired!!');
     if (error.response.status === 401 && !error.config._retry) {
-      const refreshToken = localStorage.getItem(
-        appConfig.AUTH.REFRESH_TOKEN_KEY
-      );
+      const refreshToken = localStorage.getItem(appConfig.AUTH.REFRESH_TOKEN_KEY);
       if (!refreshToken) {
         window.location.replace('/login');
         return;

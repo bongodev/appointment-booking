@@ -11,9 +11,7 @@ export const login = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: 'No user exists with this email' });
+      return res.status(401).json({ message: 'No user exists with this email' });
     }
 
     if (!(await user.comparePassword(password))) {
@@ -31,9 +29,7 @@ export const login = asyncHandler(async (req, res) => {
     }
     const user = await User.findById(payload._id);
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: 'No user exists with this email' });
+      return res.status(401).json({ message: 'No user exists with this email' });
     }
     return res.status(200).json(generateAuthToken(user));
   });

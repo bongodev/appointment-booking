@@ -56,30 +56,25 @@ const LoginPage = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth='sm'>
       <Paper elevation={3} sx={{ mt: 8, p: 4 }}>
-        <Typography component="h1" variant="h4" align="center" gutterBottom>
+        <Typography component='h1' variant='h4' align='center' gutterBottom>
           Log In
         </Typography>
 
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          sx={{ mt: 3 }}
-        >
+        <Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 3 }}>
           <Controller
-            name="email"
+            name='email'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                autoComplete="email"
+                id='email'
+                label='Email Address'
+                autoComplete='email'
                 autoFocus
                 error={!!errors.email}
                 helperText={errors.email?.message}
@@ -88,27 +83,27 @@ const LoginPage = () => {
           />
 
           <Controller
-            name="password"
+            name='password'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                id="password"
-                label="Password"
+                id='password'
+                label='Password'
                 type={showPassword ? 'text' : 'password'}
-                autoComplete="current-password"
+                autoComplete='current-password'
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position='end'>
                       <IconButton
-                        aria-label="toggle password visibility"
+                        aria-label='toggle password visibility'
                         onClick={handleClickShowPassword}
-                        edge="end"
+                        edge='end'
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -119,47 +114,41 @@ const LoginPage = () => {
             )}
           />
 
-          <Grid container alignItems="center" justifyContent="space-between">
+          <Grid container alignItems='center' justifyContent='space-between'>
             <Grid item>
               <Controller
-                name="rememberMe"
+                name='rememberMe'
                 control={control}
                 render={({ field }) => (
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        {...field}
-                        checked={field.value}
-                        color="primary"
-                      />
-                    }
-                    label="Remember me"
+                    control={<Checkbox {...field} checked={field.value} color='primary' />}
+                    label='Remember me'
                   />
                 )}
               />
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href='#' variant='body2'>
                 Forgot password?
               </Link>
             </Grid>
           </Grid>
 
           <Button
-            type="submit"
+            type='submit'
             fullWidth
-            variant="contained"
+            variant='contained'
             sx={{ mt: 3, mb: 2, py: 1.5 }}
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Logging In...' : 'Log In'}
           </Button>
 
-          <Grid container justifyContent="center">
+          <Grid container justifyContent='center'>
             <Grid item>
-              <Typography variant="body2" align="center">
+              <Typography variant='body2' align='center'>
                 Don't have an account?{' '}
-                <Link href="/signup" variant="body2">
+                <Link href='/signup' variant='body2'>
                   Sign Up
                 </Link>
               </Typography>

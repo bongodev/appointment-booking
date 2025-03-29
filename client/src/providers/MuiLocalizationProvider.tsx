@@ -6,12 +6,6 @@ type MuiLocalizationProviderProps = {
   children: React.ReactNode;
 };
 
-export const MuiLocalizationProvider = ({
-  children,
-}: MuiLocalizationProviderProps) => {
-  return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      {children}
-    </LocalizationProvider>
-  );
+export const MuiLocalizationProvider = ({ children }: MuiLocalizationProviderProps) => {
+  return <LocalizationProvider dateAdapter={AdapterMoment}>{children}</LocalizationProvider>;
 };

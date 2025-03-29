@@ -31,8 +31,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       validate: {
         validator: (value) => /^\+[1-9]\d{1,14}$/.test(value),
-        message:
-          'Mobile number must be in international format (e.g., +8801234567)',
+        message: 'Mobile number must be in international format (e.g., +8801234567)',
       },
     },
     password: {
