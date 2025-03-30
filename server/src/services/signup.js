@@ -1,6 +1,6 @@
 import { DuplicateResourceError } from '../utils/customErrors.js';
 import { logger } from '../config/logger.js';
-import { User, UserProfile } from '../models/index.js';
+import { Role, User, UserProfile } from '../models/index.js';
 
 export const signup = async ({ name, email, mobile, password }) => {
   const userAlredyExists = await User.findOne({ email });
@@ -9,11 +9,17 @@ export const signup = async ({ name, email, mobile, password }) => {
       `User with email ${email} is already registered`
     );
   }
+  const defaultRole = await Role.findOne({ role: 'Client' });
+    
+  if (!defaultRole) {
+    logger.warn('Default "Client" role not found. User will be created without a role.');
+  }
   const user = new User({
     name,
     email,
     mobile,
     password,
+    role: defaultRole ? defaultRole._id : undefined
   });
   await user.save();
 
