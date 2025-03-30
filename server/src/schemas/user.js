@@ -26,4 +26,5 @@ export const userSchema = z.object({
     .regex(/[^A-Za-z0-9]/, {
       message: 'Password must contain at least one special character',
     }),
+  role: z.string.regex(/^[0-9a-fA-F]{24}$/),
 });
