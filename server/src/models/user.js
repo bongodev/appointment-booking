@@ -52,6 +52,10 @@ const userSchema = new mongoose.Schema(
           'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
       },
     },
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Role'
+    },
     deleted: {
       type: Boolean,
       default: false,
