@@ -6,7 +6,6 @@ import { userProfileSchema } from '../schemas/index.js';
 const profileRouter = Router();
 
 profileRouter.get('/', userProfileController.getUserProfile);
-profileRouter.get('/users', userProfileController.getUsers);//Moving this downwards will  cause error
 profileRouter.get('/:profileId', userProfileController.getProfileById);
 profileRouter.put(
   '/:profileId',

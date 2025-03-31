@@ -35,15 +35,10 @@ const deleteUserProfile = async (profileId) => {
   return { message: 'User and Profile soft-deleted successfully' };
 };
 
-const getUsers = async () => {
-  const users = await User.find({ deleted: false }); // For testing purpose
-  return users;
-};
 
 export {
     getUserProfile,
     getProfileById,
     updateUserProfile,
     deleteUserProfile,
-    getUsers
 };

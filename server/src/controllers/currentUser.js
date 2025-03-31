@@ -1,46 +1,37 @@
 import asyncHandler from 'express-async-handler';
-import { logger } from '../config/logger.js';
 import { getCurrentUserById } from '../services/index.js';
 
 export const getcurrentUser = asyncHandler(async (req, res) => {
   
     const userId = req.user._id;
-    // const userId = req.query._id ; //when there is no authentication setup
     if (!userId) {
       return res.status(400).json({
         message: 'Not authenticiated',
       });
     }
-    const user = await getCurrentUserById(userId);
-    if (!user){
+    const {currentUser, currentUserProfile} = await getCurrentUserById(userId);
+    if (!currentUser){
       return res.status(404).json({
         success: false,
         message: 'User not found',
       });  
     }
-     if(user.error){
-    logger.error('Error fetching current user:', user.error.message);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to fetch user details',
-      error: user.error.message,
-    });
-  }
+    
     res.status(200).json({
-      id: user._id,
-      email: user.email,
-      mobile: user.mobile,
-      role: user.role? {
-        id: user.role._id,
-          name: user.role.role,
-          description: user.role.description,
-          permissions: user.role.permissions
+      id: currentUser._id,
+      email: currentUser.email,
+      mobile: currentUser.mobile,
+      role: currentUser.role? {
+        id: currentUser.role._id,
+          name: currentUser.role.role,
+          description: currentUser.role.description,
+          permissions: currentUser.role.permissions
       } : null,
-      profile: user.profile? {
-        id: profile._id,
-        image: profile.image,
-        address: profile.address,
-        dateOfBirth: profile.dateOfBirth
+      profile: currentUserProfile? {
+        id: currentUserProfile._id,
+        image: currentUserProfile.image,
+        address: currentUserProfile.address,
+        dateOfBirth: currentUserProfile.dateOfBirth
       } : null
     });
   });
