@@ -16,7 +16,12 @@ export const getcurrentUser = asyncHandler(async (req, res) => {
       id: user._id,
       email: user.email,
       mobile: user.mobile,
-      role: user.role,
+      role: user.role? {
+        id: user.role._id,
+          name: user.role.role,
+          description: user.role.description,
+          permissions: user.role.permissions
+      } : null,
       profile: user.profile,
     });
   } catch (error) {
