@@ -11,7 +11,7 @@ const port = config.PORT;
 
 const app = express();
 
-app.use(pinoHttp({logger}));
+app.use(pinoHttp({ logger }));
 app.use(cors(config.CORS));
 app.use(express.json());
 
