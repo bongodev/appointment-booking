@@ -19,6 +19,7 @@ export const getcurrentUser = asyncHandler(async (req, res) => {
     
     res.status(200).json({
       id: currentUser._id,
+      name: currentUser.name,
       email: currentUser.email,
       mobile: currentUser.mobile,
       role: currentUser.role? {
