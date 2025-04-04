@@ -11,7 +11,7 @@ import {
   LoginPage,
   SignupPage,
   Slots,
-  UnauthorizedPage
+  UnauthorizedPage,
 } from './pages';
 import QueryProvider from './providers/QueryProvider';
 

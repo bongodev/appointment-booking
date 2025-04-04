@@ -11,12 +11,12 @@ interface AppContextType {
   currentUser: User | null;
   currentUserProfile: UserProfile | null;
   isLoading: boolean;
-  isAutheticated: boolean;
+  isAuthenticated: boolean;
   error: Error | null;
   refetch: () => Promise<any>;
 }
 export function AppProvider({ children }: AppProviderProps) {
-  const { data, isLoading, isAutheticated, error, refetch } = useCurrentUser();
+  const { data, isLoading, isAuthenticated, error, refetch } = useCurrentUser();
 
   const currentUser: User | null = data
     ? {
@@ -33,7 +33,7 @@ export function AppProvider({ children }: AppProviderProps) {
     currentUser,
     currentUserProfile,
     isLoading,
-    isAutheticated,
+    isAuthenticated,
     error,
     refetch,
   };
