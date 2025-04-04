@@ -2,7 +2,18 @@ import { useCurrentUser } from '@/hooks';
 import { User, UserProfile } from '@/types';
 import { createContext, ReactNode, useContext } from 'react';
 
-const AppContext = createContext<AppContextType | null>(null);
+const defaultContextValue: AppContextType = {
+  currentUser: null,
+  currentUserProfile: null,
+  isLoading: false,
+  isAuthenticated: false,
+  error: null,
+  refetch: async () => {
+    return null;
+  },
+};
+
+const AppContext = createContext<AppContextType>(defaultContextValue);
 export const useApp = () => useContext(AppContext);
 interface AppProviderProps {
   children: ReactNode;
