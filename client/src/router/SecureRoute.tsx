@@ -1,9 +1,15 @@
-import { AppProvider, useApp } from "@/providers/AppProvider";
+import { useApp } from "@/providers/AppProvider";
 import {Box} from '@/ui';
 import { CircularProgress } from '@/ui/Icons';
 import { Navigate, useLocation } from "react-router";
 
-export const SecureRoute = ({children, allowedRoles,  redirectTo = '/login'}) =>{
+interface SecureRouteProps {
+    children: React.ReactNode;
+    allowedRoles?: string[];
+    redirectTo?: string;
+  }
+
+export const SecureRoute = ({children, allowedRoles,  redirectTo = '/login'}: SecureRouteProps) =>{
     const location = useLocation();
     const {currentUser, isLoading, isAuthenticated} = useApp();
     if(isLoading){
