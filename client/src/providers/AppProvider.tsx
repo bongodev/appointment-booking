@@ -2,7 +2,18 @@ import { useCurrentUser } from '@/hooks';
 import { User, UserProfile } from '@/types';
 import { createContext, ReactNode, useContext } from 'react';
 
-const AppContext = createContext<AppContextType | null>(null);
+const defaultContextValue: AppContextType = {
+  currentUser: null,
+  currentUserProfile: null,
+  isLoading: false,
+  isAuthenticated: false,
+  error: null,
+  refetch: async () => {
+    return null;
+  },
+};
+
+const AppContext = createContext<AppContextType>(defaultContextValue);
 export const useApp = () => useContext(AppContext);
 interface AppProviderProps {
   children: ReactNode;
@@ -11,12 +22,12 @@ interface AppContextType {
   currentUser: User | null;
   currentUserProfile: UserProfile | null;
   isLoading: boolean;
-  isAutheticated: boolean;
+  isAuthenticated: boolean;
   error: Error | null;
   refetch: () => Promise<any>;
 }
 export function AppProvider({ children }: AppProviderProps) {
-  const { data, isLoading, isAutheticated, error, refetch } = useCurrentUser();
+  const { data, isLoading, isAuthenticated, error, refetch } = useCurrentUser();
 
   const currentUser: User | null = data
     ? {
@@ -33,7 +44,7 @@ export function AppProvider({ children }: AppProviderProps) {
     currentUser,
     currentUserProfile,
     isLoading,
-    isAutheticated,
+    isAuthenticated,
     error,
     refetch,
   };
