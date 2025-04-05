@@ -9,5 +9,6 @@ appointmentRouter.post(
   validatePayload(appointmentSchema.omit({ _id: true })),
   appointmentController.createAppointment
 );
+appointmentRouter.post('/search', appointmentController.searchAppointments);
 
 export default appointmentRouter;
