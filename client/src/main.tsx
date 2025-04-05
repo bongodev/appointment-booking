@@ -15,11 +15,13 @@ import {
 import QueryProvider from './providers/QueryProvider';
 
 import './index.css';
+import { AppProvider } from './providers/AppProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryProvider>
       <BrowserRouter>
+      <AppProvider>
         <Routes>
           <Route path="/" element={<HomePage />}>
             <Route path="/book-slot" element={<BookSlotPage />} />
@@ -34,6 +36,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path="appointments" element={<Appointments />} />
           </Route>
         </Routes>
+        </AppProvider>
       </BrowserRouter>
     </QueryProvider>
   </StrictMode>
