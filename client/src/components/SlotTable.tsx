@@ -6,11 +6,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { slotTableRows } from '@/data';
+import { timeSlots, daySlots } from '@/data';
 import { Box, Button } from '@mui/material';
+import dayjs from 'dayjs';
 
-type SlotTableProps = {
-  userId?: string;
+type SlotTableProps = {};
+
+const getWeekDates = () => {
+  const today = dayjs();
+  const startOfWeek = today.startOf('week');
+  return Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, 'day'));
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -29,68 +34,98 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
 }));
 
-export default function SlotTable({ userId }: SlotTableProps) {
- 
+export default function SlotTable({}: SlotTableProps) {
+  const weekDates = getWeekDates();
+
   return (
-    <Box sx={{ mt: 2 }}>
-      <TableContainer component={Paper}>
-        {userId && (
-          <div
-            style={{
-              padding: '10px',
-              fontWeight: 'bold',
-              backgroundColor: '#f0f0f0',
-              borderBottom: '1px solid #e0e0e0',
-            }}
-          >
-            Editing Slots for User with ID {userId}
-          </div>
-        )}
-        <Table sx={{ minWidth: 700 }} aria-label='customized table'>
+    <Box sx={{ mt: 3 }}>
+      <TableContainer sx={{ minWidth: 700, maxHeight: 550 }} component={Paper}>
+        <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Time</StyledTableCell>
-              <StyledTableCell>Sunday</StyledTableCell>
-              <StyledTableCell>Monday</StyledTableCell>
-              <StyledTableCell>Tuesday</StyledTableCell>
-              <StyledTableCell>Wednesday</StyledTableCell>
-              <StyledTableCell>Thursday</StyledTableCell>
-              <StyledTableCell>Friday</StyledTableCell>
-              <StyledTableCell>Saturday</StyledTableCell>
+              <StyledTableCell component="th" scope="row" sx={{ width: 180 }}>
+                Time
+              </StyledTableCell>
+              {weekDates.map((date, index) => {
+                const isToday = date.isSame(dayjs(), 'day');
+
+                return (
+                  <TableCell
+                    key={index}
+                    align="center"
+                    sx={{
+                      bgcolor: isToday ? 'gray' : 'primary.main',
+                      color: 'white',
+                      border: '1px solid rgba(224, 224, 224, 1)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        backgroundColor: 'primary.main',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                      }}
+                    >
+                      {date.format('DD')}
+                    </div>
+                    <div style={{ fontSize: 8 }}>
+                      {date.format('ddd').toUpperCase()}
+                    </div>
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
-            {slotTableRows.map((row) => (
-              <StyledTableRow key={row.time}>
-                <StyledTableCell component='th' scope='row' sx={{ width: 180 }}>
-                  {row.time}
-                </StyledTableCell>
-                <StyledTableCell>{row.sunSlot}</StyledTableCell>
-                <StyledTableCell>{row.monSlot}</StyledTableCell>
-                <StyledTableCell>{row.tuesSlot}</StyledTableCell>
-                <StyledTableCell>{row.wednesSlot}</StyledTableCell>
-                <StyledTableCell>{row.thursSlot}</StyledTableCell>
-                <StyledTableCell>{row.friSlot}</StyledTableCell>
-                <StyledTableCell>{row.saturSlot}</StyledTableCell>
+            {timeSlots.map((slot) => (
+              <StyledTableRow key={slot}>
+                <StyledTableCell>{slot}</StyledTableCell>
+                {daySlots.map((daySlot) => (
+                  <StyledTableCell
+                    key={daySlot}
+                    sx={{
+                      position: 'relative',
+                      '&:hover .hover-button': { display: 'inline-flex' },
+                    }}
+                  >
+                    <Button
+                      className="hover-button"
+                      variant="text"
+                      color="primary"
+                      sx={{
+                        display: 'none',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        width: '100%',
+                        height: '100%',
+                        transform: 'translate(-50%, -50%)',
+                        minWidth: 'auto',
+                        padding: 2,
+                        fontSize: '0.75rem',
+                        textTransform: 'none',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      + Reserve{' '}
+                    </Button>
+                  </StyledTableCell>
+                ))}
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Box sx={{ display: 'flex', gap: 2}} >
-
-      <Button variant='contained' color="secondary" >
-           Cancel
-         </Button>
-         <Button variant='contained' color="primary">
-           Save Changes
-         </Button>
+      <Box sx={{ display: 'flex', flexDirection: 'row-reverse', gap: 2 }}>
+        <Button variant="contained" color="primary">
+          Save Changes
+        </Button>
+        <Button variant="contained" color="secondary">
+          Cancel
+        </Button>
       </Box>
     </Box>
   );
