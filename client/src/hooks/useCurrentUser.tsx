@@ -30,7 +30,7 @@ export const useCurrentUser = () => {
 
   return {
     ...currentUserQuery,
-    isAutheticated: Boolean(currentUserQuery.data),
+    isAuthenticated: Boolean(currentUserQuery.data),
     isLoading: currentUserQuery.isLoading,
   };
 };

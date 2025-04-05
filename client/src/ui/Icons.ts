@@ -4,6 +4,7 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export {
   MenuIcon,
@@ -13,4 +14,5 @@ export {
   ScheduleIcon,
   DeleteIcon,
   FilterListIcon,
+  CircularProgress,
 };
