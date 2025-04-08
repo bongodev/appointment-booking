@@ -1,4 +1,5 @@
 import { Appointment } from '../models/index.js';
+import { formatPagination } from '../schemas/index.js';
 export const createAppointment = async (appointmentPayload) => {
   const appointment = new Appointment(appointmentPayload);
   await appointment.save();
@@ -21,12 +22,7 @@ export const searchAppointments = async ({ host, page, limit }) => {
     .sort({ createdAt: -1 });
 
   return {
-    data: appointments,
-    pagination: {
-      total,
-      page: Number(page),
-      limit: Number(limit),
-      totalPages: Math.ceil(total / limit),
-    },
+    hits: appointments,
+    pagination: formatPagination({ total, page, limit }),
   };
 };
