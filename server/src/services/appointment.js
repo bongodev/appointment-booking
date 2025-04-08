@@ -1,5 +1,6 @@
 import { Appointment } from '../models/index.js';
-import { formatPagination } from '../schemas/index.js';
+import { paginationSchema } from '../schemas/index.js';
+
 export const createAppointment = async (appointmentPayload) => {
   const appointment = new Appointment(appointmentPayload);
   await appointment.save();
@@ -13,6 +14,11 @@ export const searchAppointments = async ({ host, page, limit }) => {
   const skip = (page - 1) * limit;
   //count the documents and return the documents which match with the specific query
   const total = await Appointment.countDocuments(query);
+  paginationSchema.parse({
+    total,
+    page,
+    limit,
+  });
 
   const appointments = await Appointment.find(query)
     .populate('host')
@@ -23,6 +29,10 @@ export const searchAppointments = async ({ host, page, limit }) => {
 
   return {
     hits: appointments,
-    pagination: formatPagination({ total, page, limit }),
+    pagination: {
+      total,
+      page,
+      limit,
+    },
   };
 };

@@ -6,17 +6,3 @@ export const paginationSchema = z.object({
   page: z.number().min(1, 'Page number must be at least 1'),
   limit: z.number().min(1, 'Limit must be at least 1'),
 });
-
-export const formatPagination = ({ total, page, limit }) => {
-  paginationSchema.parse({
-    total,
-    page,
-    limit,
-  });
-
-  return {
-    total,
-    page,
-    limit,
-  };
-};
