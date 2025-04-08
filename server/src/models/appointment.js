@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema(
@@ -42,6 +44,28 @@ const appointmentSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Hash password before saving
+appointmentSchema.pre('save', async function (next) {
+  if (
+    this.isModified('meetingDetails.password') &&
+    this.meetingDetails?.password
+  ) {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(
+        this.meetingDetails.password,
+        salt
+      );
+      this.meetingDetails.password = hashedPassword;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    next();
+  }
+});
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
 export default Appointment;
