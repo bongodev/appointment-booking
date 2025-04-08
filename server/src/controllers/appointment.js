@@ -8,11 +8,13 @@ export const createAppointment = asyncHandler(async (req, res) => {
 
 export const searchAppointments = asyncHandler(async (req, res) => {
   const { host, page = 1, limit = 5 } = req.body;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
 
   const appointments = await appointmentServices.searchAppointments({
     host,
-    page,
-    limit,
+    page: pageNumber,
+    limit: limitNumber,
   });
   res.status(200).json(appointments);
 });
