@@ -27,21 +27,20 @@ interface AppContextType {
   refetch: () => Promise<any>;
 }
 export function AppProvider({ children }: AppProviderProps) {
-  const { data, isLoading, isAuthenticated, error, refetch } = useCurrentUser();
+  const { currentUser, isLoading, isAuthenticated, error, refetch } =
+    useCurrentUser();
 
-  const currentUser: User | null = data
-    ? {
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        mobile: data.mobile,
-        role: data.role,
-      }
-    : null;
-
-  const currentUserProfile = data?.profile || null;
+  const currentUserProfile = currentUser?.profile || null;
   const value: AppContextType = {
-    currentUser,
+    currentUser: currentUser
+      ? {
+          id: currentUser.id,
+          name: currentUser.name,
+          email: currentUser.email,
+          mobile: currentUser.mobile,
+          role: currentUser.role,
+        }
+      : null,
     currentUserProfile,
     isLoading,
     isAuthenticated,

@@ -6,10 +6,6 @@ const CURRENT_USER_QUERY_KEY = 'currentUser';
 
 export const useCurrentUser = () => {
   const fetchCurrentUser = async () => {
-    const accessToken = localStorage.getItem(appConfig.AUTH.ACCESS_TOKEN_KEY);
-    if (!accessToken) {
-      return null;
-    }
     try {
       const { data } = await http.get('/api/users/current-user');
       return data;
@@ -29,8 +25,10 @@ export const useCurrentUser = () => {
   });
 
   return {
-    ...currentUserQuery,
+    currentUser: currentUserQuery.data,
     isAuthenticated: Boolean(currentUserQuery.data),
     isLoading: currentUserQuery.isLoading,
+    error: currentUserQuery.error,
+    refetch: currentUserQuery.refetch,
   };
 };
