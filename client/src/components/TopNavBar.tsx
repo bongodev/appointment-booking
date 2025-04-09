@@ -15,10 +15,9 @@ import {
 } from '@/ui';
 
 import { useState } from 'react';
-import { appConfig } from '@/config';
+import MenuItemList from './MenuItemList';
 
 const pages = ['Contact Us', 'About Us'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function TopNavBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -37,15 +36,6 @@ export default function TopNavBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const handleMenuAction = (setting: string) => {
-    handleCloseUserMenu();
-    if (setting === 'Logout') {
-      localStorage.removeItem(appConfig.AUTH.ACCESS_TOKEN_KEY);
-      localStorage.removeItem(appConfig.AUTH.REFRESH_TOKEN_KEY);
-      window.location.replace('/login');
-    }
   };
 
   return (
@@ -164,16 +154,7 @@ export default function TopNavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => handleMenuAction(setting)}
-                >
-                  <Typography sx={{ textAlign: 'center' }}>
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
+              <MenuItemList />
             </Menu>
           </Box>
         </Toolbar>
