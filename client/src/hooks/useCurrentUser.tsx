@@ -20,7 +20,7 @@ export const useCurrentUser = () => {
     queryKey: [CURRENT_USER_QUERY_KEY],
     queryFn: () => fetchCurrentUser(),
     retry: false,
-    staleTime: 1000 * 5 * 60,
+    staleTime: 1000 * 15 * 60,
     enabled: Boolean(localStorage.getItem(appConfig.AUTH.ACCESS_TOKEN_KEY)),
   });
 
