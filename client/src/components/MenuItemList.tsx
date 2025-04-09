@@ -1,6 +1,6 @@
 import { useLogout } from '@/hooks';
 import { useApp } from '@/providers/AppProvider';
-import { Avatar, Box, Divider, MenuItem, Typography } from '@mui/material';
+import { Avatar, Box, Divider, MenuItem, Typography } from '@/ui';
 import { NavLink } from 'react-router';
 
 type Props = {
