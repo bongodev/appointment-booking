@@ -71,7 +71,8 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           build-args: |
             NODE_VERSION=20
-            ENVIRONMENT=production
+            # ENVIRONMENT=production
+            ENVIRONMENT=development
 
   deploy:
     # if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -117,6 +118,7 @@ jobs:
               -e MONGO_URI='${{ secrets.MONGO_URI }}' \
               -e MONGO_DB='appointment-db' \
               -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
+              -e CORS_ORIGIN='http://localhost:5173' \
               $IMAGE
 
             docker ps | grep $CONTAINER_NAME
