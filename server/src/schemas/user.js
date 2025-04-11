@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { IDSchema, DateMixin } from './mixin.js'
+import { IDSchema, DateMixin } from './mixin.js';
 
 export const userSchema = z.object({
   ...IDSchema.shape,

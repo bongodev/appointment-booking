@@ -6,6 +6,6 @@ export const getCurrentUserById = async (userId) => {
       throw new Error('User not found');
     }
     const currentUserProfile = await UserProfile.findOne({user: userId,
-      deleted: false })
+      deleted: false });
     return {currentUser, currentUserProfile};
 };

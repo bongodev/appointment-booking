@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { logger } from '../config/index.js';
 import { DuplicateResourceError } from '../utils/customErrors.js';
 
+// eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   if (err instanceof z.ZodError) {
     return res.status(400).send(err.errors);
