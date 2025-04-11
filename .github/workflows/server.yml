@@ -1,0 +1,125 @@
+name: server CI
+
+on:
+  push:
+    branches: [main] # will be main
+    paths:
+      - 'server/*'
+      - '.github/workflows/server.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'server/*'
+      - '.github/workflows/server.yml'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/server
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          cache-dependency-path: server/yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: server
+
+      - name: Run ESLint
+        run: yarn lint
+        working-directory: server
+
+      - name: Run Prettier
+        run: yarn format --check
+        working-directory: server
+
+  docker-build:
+    # if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    needs: lint-and-format
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./server
+          file: ./server/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            NODE_VERSION=20
+            # ENVIRONMENT=production
+            ENVIRONMENT=development
+
+  deploy:
+    # if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    needs: docker-build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            echo "🔑 SSH into EC2 instance..."
+
+            echo "🔑 Logging into Docker registry..."
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+            CONTAINER_NAME="ap-server"
+
+            echo "🚀 Pulling Docker image... $IMAGE"
+            docker pull $IMAGE
+
+            echo "🛑 Stopping and removing existing container..."
+            docker stop $CONTAINER_NAME || true
+            docker rm $CONTAINER_NAME || true
+
+            echo "🚀 Creating Docker network..."
+            NETWORK_NAME="ap-network"
+            docker network create $NETWORK_NAME || true
+
+            echo "🚀 Starting new container..."
+            docker run -d \
+              --name $CONTAINER_NAME \
+              --network $NETWORK_NAME \
+              -p 8000:8000 \
+              -e PORT=8000 \
+              -e MONGO_URI='${{ secrets.MONGO_URI }}' \
+              -e MONGO_DB='appointment-db' \
+              -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
+              -e CORS_ORIGIN='http://localhost:5173' \
+              $IMAGE
+
+            docker ps | grep $CONTAINER_NAME
+            echo "✅ Deployment complete!"

@@ -35,10 +35,4 @@ const deleteUserProfile = async (profileId) => {
   return { message: 'User and Profile soft-deleted successfully' };
 };
 
-
-export {
-    getUserProfile,
-    getProfileById,
-    updateUserProfile,
-    deleteUserProfile,
-};
+export { getUserProfile, getProfileById, updateUserProfile, deleteUserProfile };

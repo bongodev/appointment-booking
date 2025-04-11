@@ -29,10 +29,4 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
     .json({ message: `Profile with id: ${profileId} successfully deleted` });
 });
 
-
-export {
-  getUserProfile,
-  getProfileById,
-  updateUserProfile,
-  deleteUserProfile,
-};
+export { getUserProfile, getProfileById, updateUserProfile, deleteUserProfile };

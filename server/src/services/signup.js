@@ -10,16 +10,18 @@ export const signup = async ({ name, email, mobile, password }) => {
     );
   }
   const defaultRole = await Role.findOne({ role: 'Client' });
-    
+
   if (!defaultRole) {
-    logger.warn('Default "Client" role not found. User will be created without a role.');
+    logger.warn(
+      'Default "Client" role not found. User will be created without a role.'
+    );
   }
   const user = new User({
     name,
     email,
     mobile,
     password,
-    role: defaultRole ? defaultRole._id : undefined
+    role: defaultRole ? defaultRole._id : undefined,
   });
   await user.save();
 
