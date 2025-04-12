@@ -1,14 +1,20 @@
 import { z } from 'zod';
 import mongoose from 'mongoose';
 import { logger } from '../config/index.js';
-import { DuplicateResourceError } from '../utils/customErrors.js';
+import {
+  DuplicateResourceError,
+  NotFoundError,
+} from '../utils/customErrors.js';
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res, _next) => {
   if (err instanceof z.ZodError) {
     return res.status(400).send(err.errors);
   }
 
   if (err instanceof DuplicateResourceError) {
+    return res.status(409).send(err.message);
+  }
+  if (err instanceof NotFoundError) {
     return res.status(409).send(err.message);
   }
 
