@@ -1,4 +1,5 @@
 import { User } from '../models/index.js';
+import { NotFoundError } from '../utils/customErrors.js';
 
 export const updateUser = async (userId, data) => {
   const user = await User.findByIdAndUpdate(
@@ -6,6 +7,8 @@ export const updateUser = async (userId, data) => {
     { $set: data },
     { new: true }
   ).select('-password');
-  // TODO: throw error
+  if (!user) {
+    throw NotFoundError(`User with id ${userId} is not found`);
+  }
   return user;
 };
