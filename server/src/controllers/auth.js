@@ -44,7 +44,7 @@ const generateAuthToken = (user) => {
     { _id: user._id.toString(), email: user.email },
     config.AUTH.JWT_SECRET,
     {
-      expiresIn: '1m',
+      expiresIn: '60m',
     }
   );
 
