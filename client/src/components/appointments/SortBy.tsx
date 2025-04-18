@@ -13,12 +13,12 @@ export default function SortBy() {
   return (
     <Select
       onChange={(_, value) => handleValueChange(value)}
-      color='primary'
-      size='md'
-      defaultValue='latest'
+      color="primary"
+      size="md"
+      defaultValue="latest"
     >
-      <Option value='latest'>Sort by latest</Option>
-      <Option value='old'>Sort by oldest</Option>
+      <Option value="latest">Sort by latest</Option>
+      <Option value="old">Sort by oldest</Option>
     </Select>
   );
 }

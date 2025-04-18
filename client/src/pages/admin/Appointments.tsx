@@ -75,7 +75,7 @@ export default function Appointments() {
         <TableContainer>
           <Table
             sx={{ minWidth: 750, boxShadow: 'none' }}
-            aria-labelledby='tableTitle'
+            aria-labelledby="tableTitle"
             size={'medium'}
           >
             <EnhancedTableHead
@@ -94,26 +94,26 @@ export default function Appointments() {
                   <TableRow
                     hover
                     onClick={() => handleRowClick(row.id)}
-                    role='checkbox'
+                    role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.id}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
-                    <TableCell padding='checkbox'>
+                    <TableCell padding="checkbox">
                       <Checkbox
-                        color='primary'
+                        color="primary"
                         checked={isItemSelected}
                         aria-labelledby={labelId}
                       />
                     </TableCell>
                     <TableCell
-                      align='center'
-                      component='th'
+                      align="center"
+                      component="th"
                       id={labelId}
-                      scope='row'
-                      padding='none'
+                      scope="row"
+                      padding="none"
                       sx={{
                         py: 1,
                       }}
@@ -124,16 +124,16 @@ export default function Appointments() {
                         alt={row.clientName}
                       />
                     </TableCell>
-                    <TableCell sx={{ py: 1 }} align='center'>
+                    <TableCell sx={{ py: 1 }} align="center">
                       {row.date}
                     </TableCell>
-                    <TableCell sx={{ py: 1 }} align='center'>
+                    <TableCell sx={{ py: 1 }} align="center">
                       {row.time}
                     </TableCell>
-                    <TableCell sx={{ py: 1 }} align='center'>
+                    <TableCell sx={{ py: 1 }} align="center">
                       {row.status}
                     </TableCell>
-                    <TableCell sx={{ py: 1 }} align='center'>
+                    <TableCell sx={{ py: 1 }} align="center">
                       <UserCard
                         name={row.appointer}
                         imgSrc={row.appointerImgUrl}
@@ -143,7 +143,7 @@ export default function Appointments() {
                     <TableCell
                       sx={{ py: 1 }}
                       key={row.appointmentTitle}
-                      align='center'
+                      align="center"
                     >
                       {row.appointmentTitle}
                     </TableCell>
@@ -173,8 +173,8 @@ export default function Appointments() {
             <Pagination
               onChange={(_e, page) => handlePageChange(page)}
               count={20}
-              variant='outlined'
-              shape='rounded'
+              variant="outlined"
+              shape="rounded"
             />
           </Stack>
         </TableContainer>

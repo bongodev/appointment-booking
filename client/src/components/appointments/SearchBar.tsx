@@ -50,8 +50,8 @@ export default function SearchBar() {
       renderInput={(params) => (
         <TextField
           {...params}
-          label='Search by client name'
-          size='small'
+          label="Search by client name"
+          size="small"
           fullWidth
           slotProps={{
             input: {
@@ -59,7 +59,7 @@ export default function SearchBar() {
               endAdornment: (
                 <React.Fragment>
                   {loading ? (
-                    <CircularProgress color='inherit' size={20} />
+                    <CircularProgress color="inherit" size={20} />
                   ) : null}
                   {params.InputProps.endAdornment}
                 </React.Fragment>

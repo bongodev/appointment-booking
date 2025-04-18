@@ -28,34 +28,34 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       {numSelected > 0 ? (
         <Typography
           sx={{ flex: '1 1 100%' }}
-          color='inherit'
-          variant='subtitle1'
-          component='div'
+          color="inherit"
+          variant="subtitle1"
+          component="div"
         >
           {numSelected} selected
         </Typography>
       ) : (
         <Typography
           sx={{ flex: '1 1 100%', fontWeight: 'bold' }}
-          variant='h6'
-          id='tableTitle'
-          component='div'
+          variant="h6"
+          id="tableTitle"
+          component="div"
         >
           Appointments
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Tooltip title='Delete'>
+        <Tooltip title="Delete">
           <IconButton>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <Tooltip title='Search bar'>
+          <Tooltip title="Search bar">
             <SearchBar />
           </Tooltip>
-          <Tooltip title='sort by latest or oldest'>
+          <Tooltip title="sort by latest or oldest">
             <SortBy />
           </Tooltip>
         </Box>

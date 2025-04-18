@@ -20,11 +20,16 @@ export const UnauthorizedPage = () => {
         <Typography variant="body2" color="text.secondary" gutterBottom>
           You do not have permission to view this page.
         </Typography>
-        <Button component={Link} to="/" variant="contained" color="primary" sx={{marginTop: 5}}>
+        <Button
+          component={Link}
+          to="/"
+          variant="contained"
+          color="primary"
+          sx={{ marginTop: 5 }}
+        >
           Go to HomePage
         </Button>
       </Box>
     </Container>
   );
 };
-

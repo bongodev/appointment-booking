@@ -199,4 +199,3 @@ export const daySlots = [
   'friSlot',
   'satSlot',
 ];
-
