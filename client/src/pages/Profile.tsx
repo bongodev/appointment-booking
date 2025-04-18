@@ -1,16 +1,11 @@
-import { useCurrentUser, useProfileUpdate, useUserUpdate } from '@/hooks';
-import { profileFormSchema, ProfileFormType } from '@/schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Container,
-  Paper,
-  Typography,
-  Box,
-  TextField,
-  Button,
-} from '@mui/material';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useCurrentUser, useProfileUpdate, useUserUpdate } from '@/hooks';
+import { profileFormSchema, ProfileFormType } from '@/schema';
+
+import { Paper, Typography, Box, TextField, Button } from '@/ui';
 
 export default function Profile() {
   const {
@@ -68,33 +63,94 @@ export default function Profile() {
     });
   }
   return (
-    <Container maxWidth="md">
-      <Paper elevation={3} sx={{ mt: 8, p: 4 }}>
-        <Typography
-          component="h1"
-          variant="h4"
-          gutterBottom
-          style={{ fontWeight: 'bold' }}
-        >
-          My Profile
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          gutterBottom
-          color="textSecondary"
-          style={{ fontSize: '1.1rem' }}
-        >
-          View your profile and update your profile information
-        </Typography>
+    <Paper elevation={3} sx={{ p: 4 }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        gutterBottom
+        style={{ fontWeight: 'bold' }}
+      >
+        My Profile
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        gutterBottom
+        color="textSecondary"
+        style={{ fontSize: '1.1rem' }}
+      >
+        View your profile and update your profile information
+      </Typography>
 
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        sx={{ mt: 3 }}
+      >
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Full Name"
+              autoComplete="name"
+              autoFocus
+              error={Boolean(errors.name)}
+              helperText={errors.name?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              autoComplete="email"
+              error={Boolean(errors.email)}
+              helperText={errors.email?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="mobile"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="normal"
+              required
+              fullWidth
+              id="mobile"
+              label="Mobile Number"
+              placeholder="+8801234567"
+              autoComplete="tel"
+              error={Boolean(errors.mobile)}
+              helperText={errors.mobile?.message}
+            />
+          )}
+        />
         <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          sx={{ mt: 3 }}
+          component="div"
+          sx={{
+            display: 'flex',
+            gap: 2,
+          }}
         >
           <Controller
-            name="name"
+            name="address.city"
             control={control}
             render={({ field }) => (
               <TextField
@@ -102,18 +158,17 @@ export default function Profile() {
                 margin="normal"
                 required
                 fullWidth
-                id="name"
-                label="Full Name"
-                autoComplete="name"
+                id="city"
+                label="City"
+                autoComplete="city"
                 autoFocus
-                error={Boolean(errors.name)}
-                helperText={errors.name?.message}
+                error={Boolean(errors.address?.city)}
+                helperText={errors.address?.city?.message}
               />
             )}
           />
-
           <Controller
-            name="email"
+            name="address.country"
             control={control}
             render={({ field }) => (
               <TextField
@@ -121,17 +176,17 @@ export default function Profile() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                autoComplete="email"
-                error={Boolean(errors.email)}
-                helperText={errors.email?.message}
+                id="country"
+                label="Country"
+                autoComplete="country"
+                autoFocus
+                error={Boolean(errors.address?.country)}
+                helperText={errors.address?.country?.message}
               />
             )}
           />
-
           <Controller
-            name="mobile"
+            name="address.zipCode"
             control={control}
             render={({ field }) => (
               <TextField
@@ -139,88 +194,26 @@ export default function Profile() {
                 margin="normal"
                 required
                 fullWidth
-                id="mobile"
-                label="Mobile Number"
-                placeholder="+8801234567"
-                autoComplete="tel"
-                error={Boolean(errors.mobile)}
-                helperText={errors.mobile?.message}
+                id="zipcode"
+                label="Zip Code"
+                autoComplete="zipcode"
+                autoFocus
+                error={Boolean(errors.address?.country)}
+                helperText={errors.address?.country?.message}
               />
             )}
           />
-          <Box
-            component="div"
-            sx={{
-              display: 'flex',
-              gap: 2,
-            }}
-          >
-            <Controller
-              name="address.city"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="city"
-                  label="City"
-                  autoComplete="city"
-                  autoFocus
-                  error={Boolean(errors.address?.city)}
-                  helperText={errors.address?.city?.message}
-                />
-              )}
-            />
-            <Controller
-              name="address.country"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="country"
-                  label="Country"
-                  autoComplete="country"
-                  autoFocus
-                  error={Boolean(errors.address?.country)}
-                  helperText={errors.address?.country?.message}
-                />
-              )}
-            />
-            <Controller
-              name="address.zipCode"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="zipcode"
-                  label="Zip Code"
-                  autoComplete="zipcode"
-                  autoFocus
-                  error={Boolean(errors.address?.country)}
-                  helperText={errors.address?.country?.message}
-                />
-              )}
-            />
-          </Box>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, py: 1.5 }}
-            disabled={!isDirty}
-          >
-            {isFormSubmitting ? 'Updating changes' : 'Update changes'}
-          </Button>
         </Box>
-      </Paper>
-    </Container>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2, py: 1.5 }}
+          disabled={!isDirty}
+        >
+          {isFormSubmitting ? 'Updating changes' : 'Update changes'}
+        </Button>
+      </Box>
+    </Paper>
   );
 }

@@ -1,7 +1,5 @@
 import { SlotTable } from '@/components';
 
-type SlotProps = {};
-
-export default function Slots({}: SlotProps) {
+export default function Slots() {
   return <SlotTable />;
 }

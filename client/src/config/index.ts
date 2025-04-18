@@ -4,3 +4,5 @@ export const appConfig = {
     REFRESH_TOKEN_KEY: 'ap-refresh-token',
   },
 } as const;
+
+export * from './ui';

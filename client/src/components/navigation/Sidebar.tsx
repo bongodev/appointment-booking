@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router';
+
+import { uiConfig } from '@/config';
 import {
   AppBar,
   Box,
@@ -13,35 +15,30 @@ import {
   ListItemIcon,
   ListItemText,
   MenuIcon,
+  Stack,
   Toolbar,
 } from '@/ui';
 import { DashboardIcon, EventAvailableIcon, ScheduleIcon } from '@/ui/Icons';
-
-const drawerWidth = 240;
 
 const menuItems = [
   {
     text: 'Dashboard',
     icon: <DashboardIcon />,
-    path: '/admin',
+    path: '',
   },
   {
     text: 'Slots',
     icon: <EventAvailableIcon />,
-    path: '/admin/slots',
+    path: 'slots',
   },
   {
     text: 'Appointments',
     icon: <ScheduleIcon />,
-    path: '/admin/appointments',
+    path: 'appointments',
   },
 ];
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export default function AdminSidebar({ children }: Props) {
+export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -60,9 +57,10 @@ export default function AdminSidebar({ children }: Props) {
     }
   };
 
+  const drawerWidth = uiConfig.drawerWidth;
+
   const drawer = (
-    <div>
-      <Toolbar />
+    <Stack width={drawerWidth}>
       <Divider />
       <List>
         {menuItems.map((item) => (
@@ -79,31 +77,12 @@ export default function AdminSidebar({ children }: Props) {
           </NavLink>
         ))}
       </List>
-    </div>
+    </Stack>
   );
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -137,22 +116,13 @@ export default function AdminSidebar({ children }: Props) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
+              marginTop: `${uiConfig.appBarHeight}px`,
             },
           }}
           open
         >
           {drawer}
         </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          my: 10,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        {children}
       </Box>
     </Box>
   );

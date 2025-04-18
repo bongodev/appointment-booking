@@ -9,7 +9,7 @@ interface SecureRouteProps {
   redirectTo?: string;
 }
 
-export const SecureRoute = ({
+const SecureRoute = ({
   children,
   allowedRoles,
   redirectTo = '/login',
@@ -37,3 +37,5 @@ export const SecureRoute = ({
   }
   return children;
 };
+
+export default SecureRoute;

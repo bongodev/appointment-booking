@@ -16,6 +16,7 @@ import {
 
 import { useState } from 'react';
 import MenuItemList from './MenuItemList';
+import { uiConfig } from '@/config';
 
 const pages = ['Contact Us', 'About Us'];
 
@@ -39,7 +40,10 @@ export default function TopNavBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{ height: uiConfig.appBarHeight, zIndex: uiConfig.appBarZIndex }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

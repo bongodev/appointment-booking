@@ -3,18 +3,14 @@ import { useApp } from '@/providers/AppProvider';
 import { Avatar, Box, Divider, MenuItem, Typography } from '@/ui';
 import { NavLink } from 'react-router';
 
-type Props = {
-  className?: string;
-};
-
 const menuItems: { name: string; to?: string }[] = [
-  { name: 'Profile', to: '/profile' },
-  { name: 'Account', to: '/account' },
-  { name: 'Dashboard', to: '/admin' },
+  { name: 'Profile', to: '/app/profile' },
+  { name: 'Account', to: '/app/account' },
+  { name: 'Dashboard', to: '/app' },
   { name: 'Logout' },
 ];
 
-export default function MenuItemList({}: Props) {
+export default function MenuItemList() {
   const logout = useLogout();
   const user = useApp();
 

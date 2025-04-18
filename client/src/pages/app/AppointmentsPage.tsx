@@ -21,7 +21,7 @@ import { AppointMentData, Order } from '@/types';
 import { getComparator } from '@/utils/comparators';
 import { useSearchParams } from 'react-router';
 
-export default function Appointments() {
+export default function AppointmentsPage() {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] =
     React.useState<keyof AppointMentData>('clientName');
