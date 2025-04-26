@@ -6,12 +6,11 @@ export const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ width: 1, textAlign: 'center', my: 6 }}>
-      <Typography variant="h2">Welcome to Appointment Booking</Typography>
+    <Box sx={{ width: 1, textAlign: 'center', my: 10 }}>
+      <Typography variant="h3">Welcome to Appointment Booking</Typography>
       <Button
         variant="contained"
-        color="primary"
-        sx={{ mt: 4 }}
+        sx={{ mt: 4, px: 6, py: 1 }}
         onClick={() => navigate('/book-slot')}
       >
         Book an Appointment

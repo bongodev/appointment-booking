@@ -11,18 +11,21 @@ import {
   MenuItem,
   Typography,
   MenuIcon,
-  Logo,
 } from '@/ui';
 
 import { useState } from 'react';
 import MenuItemList from './MenuItemList';
 import { uiConfig } from '@/config';
+import { Link, useLocation } from 'react-router';
+import AppLogo from '../AppLogo';
 
 const pages = ['Contact Us', 'About Us'];
 
 export default function TopNavBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -41,31 +44,35 @@ export default function TopNavBar() {
 
   return (
     <AppBar
-      position="static"
-      sx={{ height: uiConfig.appBarHeight, zIndex: uiConfig.appBarZIndex }}
+      position="fixed"
+      sx={{
+        height: uiConfig.appBarHeight,
+        zIndex: (theme) => theme.zIndex.drawer + 1, // good practice
+        backgroundColor: 'primary.main', // optional: makes background solid
+      }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Logo sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+        <Toolbar sx={{ display: 'flex', width: '100%' }} disableGutters>
+          <Box
             sx={{
-              mr: 2,
+              flexGrow: 1,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
             }}
           >
-            Appointify
-          </Typography>
+            <Link
+              style={{
+                textDecoration: 'none',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+              to={'/'}
+            >
+              <AppLogo />
+            </Link>
+          </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -99,67 +106,68 @@ export default function TopNavBar() {
               ))}
             </Menu>
           </Box>
-          <Logo sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Appointify
-          </Typography>
+
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'flex', md: 'none' },
               justifyContent: 'center',
-              gap: 4,
             }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            <AppLogo />
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+          {isHomePage && (
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'none', md: 'flex' },
+                gap: 2,
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
-              <MenuItemList />
-            </Menu>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+          )}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'end',
+            }}
+          >
+            <div>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItemList />
+              </Menu>
+            </div>
           </Box>
         </Toolbar>
       </Container>
