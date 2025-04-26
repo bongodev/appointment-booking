@@ -3,20 +3,16 @@ import { NavLink } from 'react-router';
 
 import { uiConfig } from '@/config';
 import {
-  AppBar,
   Box,
   CssBaseline,
   Divider,
   Drawer,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  MenuIcon,
   Stack,
-  Toolbar,
 } from '@/ui';
 import { DashboardIcon, EventAvailableIcon, ScheduleIcon } from '@/ui/Icons';
 
@@ -62,7 +58,7 @@ export default function Sidebar() {
   const drawer = (
     <Stack width={drawerWidth}>
       <Divider />
-      <List>
+      <List sx={{ py: 6 }}>
         {menuItems.map((item) => (
           <NavLink
             style={{ textDecoration: 'none', color: 'inherit' }}

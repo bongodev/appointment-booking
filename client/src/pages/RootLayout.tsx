@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 import { MuiLocalizationProvider } from '@/providers';
 import { AppProvider } from '@/providers/AppProvider';
 
-import { Stack } from '@/ui';
+import { Box, Stack } from '@/ui';
 import { TopNavBar } from '@/components/navigation';
 
 export default function RootLayout() {
@@ -12,7 +12,9 @@ export default function RootLayout() {
       <AppProvider>
         <Stack>
           <TopNavBar />
-          <Outlet />
+          <Box sx={{ mt: 8 }}>
+            <Outlet />
+          </Box>
         </Stack>
       </AppProvider>
     </MuiLocalizationProvider>
