@@ -38,7 +38,8 @@ http.interceptors.response.use(
           window.location.replace('/login');
           return;
         }
-        // localStorage.setItem(appConfig.AUTH.ACCESS_TOKEN_KEY, accessToken);
+
+        localStorage.setItem(appConfig.AUTH.ACCESS_TOKEN_KEY, accessToken);
         error.config.headers.Authorization = `Bearer ${accessToken}`;
         return axios(error.config);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
