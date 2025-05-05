@@ -10,6 +10,9 @@ export const config = {
   CORS: {
     ORIGIN: process.env.CORS_ORIGIN,
   },
+  FILE_SERVER: {
+    UPLOAD_DIR: '/tmp/uploads',
+  },
   AUTH: {
     JWT_SECRET: process.env.JWT_SECRET,
   },
