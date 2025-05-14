@@ -1,6 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
-import QueryProvider from '@/providers/QueryProvider';
-
 import {
   BookSlotPage,
   HomePage,
@@ -16,30 +14,28 @@ import DashboardPage from '@/pages/dashboard';
 
 export default function AppRouter() {
   return (
-    <QueryProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<RootLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="book-slot" element={<BookSlotPage />} />
-            <Route
-              path="/app"
-              element={
-                <SecureRoute>
-                  <AppLayout />
-                </SecureRoute>
-              }
-            >
-              <Route index element={<DashboardPage />} />
-              <Route path="slots" element={<SlotPage />} />
-              <Route path="appointments" element={<AppointmentsPage />} />
-              <Route path="profile" element={<Profile />} />
-            </Route>
-          </Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="book-slot" element={<BookSlotPage />} />
+        </Route>
+        <Route
+          path="app"
+          element={
+            <SecureRoute>
+              <AppLayout />
+            </SecureRoute>
+          }
+        >
+          <Route index element={<DashboardPage />} />
+          <Route path="slots" element={<SlotPage />} />
+          <Route path="appointments" element={<AppointmentsPage />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

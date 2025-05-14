@@ -21,6 +21,7 @@
     "@tanstack/react-query": "^5.70.0",
     "axios": "^1.8.3",
     "dayjs": "^1.11.13",
+    "framer-motion": "^12.11.3",
     "moment": "^2.30.1",
     "path": "^0.12.7",
     "react": "^19.0.0",

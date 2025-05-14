@@ -5,6 +5,8 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CircularProgress from '@mui/material/CircularProgress';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 export {
   MenuIcon,
@@ -15,4 +17,6 @@ export {
   DeleteIcon,
   FilterListIcon,
   CircularProgress,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 };

@@ -5,41 +5,28 @@ import {
   IconButton,
   Menu,
   Container,
-  Avatar,
-  Button,
-  Tooltip,
   MenuItem,
   Typography,
   MenuIcon,
 } from '@/ui';
 
 import { useState } from 'react';
-import MenuItemList from './MenuItemList';
 import { uiConfig } from '@/config';
-import { Link, useLocation } from 'react-router';
+import { Link } from 'react-router';
 import AppLogo from '../AppLogo';
+import UserAvatarMenu from './UserAvatarMenu';
 
 const pages = ['Contact Us', 'About Us'];
 
 export default function TopNavBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -116,25 +103,7 @@ export default function TopNavBar() {
           >
             <AppLogo />
           </Box>
-          {isHomePage && (
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: 'none', md: 'flex' },
-                gap: 2,
-              }}
-            >
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              ))}
-            </Box>
-          )}
+
           <Box
             sx={{
               flexGrow: 1,
@@ -143,31 +112,7 @@ export default function TopNavBar() {
               justifyContent: 'end',
             }}
           >
-            <div>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItemList />
-              </Menu>
-            </div>
+            <UserAvatarMenu />
           </Box>
         </Toolbar>
       </Container>

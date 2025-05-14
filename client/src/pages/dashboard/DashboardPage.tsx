@@ -1,3 +1,9 @@
+import DashboardTopNavbar from '@/components/DashboardTopNavbar';
+
 export default function DashboardPage() {
-  return <div>DashboardPage</div>;
+  return (
+    <>
+      <DashboardTopNavbar />
+    </>
+  );
 }
