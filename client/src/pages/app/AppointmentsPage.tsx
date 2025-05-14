@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import { sampleAppointments } from '@/data/appointmentData';
 import {
@@ -21,6 +20,7 @@ import { AppointMentData, Order } from '@/types';
 import { getComparator } from '@/utils/comparators';
 import { useSearchParams } from 'react-router';
 import DashboardTopNavbar from '@/components/DashboardTopNavbar';
+import React from 'react';
 
 export default function AppointmentsPage() {
   const [order, setOrder] = React.useState<Order>('asc');
