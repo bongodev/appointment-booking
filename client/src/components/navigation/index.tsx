@@ -1,2 +1,4 @@
-export { default as Sidebar } from './Sidebar';
 export { default as TopNavBar } from './TopNavBar';
+import UserAvatarMenu from './UserAvatarMenu';
+
+export { UserAvatarMenu };
