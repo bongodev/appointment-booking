@@ -20,6 +20,7 @@ import UserCard from '@/ui/UserCard';
 import { AppointMentData, Order } from '@/types';
 import { getComparator } from '@/utils/comparators';
 import { useSearchParams } from 'react-router';
+import DashboardTopNavbar from '@/components/DashboardTopNavbar';
 
 export default function AppointmentsPage() {
   const [order, setOrder] = React.useState<Order>('asc');
@@ -70,6 +71,7 @@ export default function AppointmentsPage() {
 
   return (
     <Box sx={{ width: '100%' }}>
+      <DashboardTopNavbar />
       <Paper sx={{ width: '100%', mb: 2, boxShadow: 'none' }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
