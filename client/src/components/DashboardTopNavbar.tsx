@@ -6,6 +6,7 @@ import { uiConfig } from '@/config';
 import { UserAvatarMenu } from './navigation';
 import { useSidebar } from '@/providers/SidebarProvider';
 import AppLogo from './AppLogo';
+import { Link } from 'react-router';
 
 export default function DashboardTopNavbar({
   children,
@@ -56,7 +57,17 @@ export default function DashboardTopNavbar({
             },
           }}
         >
-          <AppLogo />
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            to={'/'}
+          >
+            <AppLogo />
+          </Link>
         </Box>
 
         <Box sx={{ width: '100%' }}>{children}</Box>
