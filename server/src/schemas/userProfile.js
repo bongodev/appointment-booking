@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { DateMixin, IDSchema } from './mixin.js';
 
-const userProfileSchema = z.object({
+export const userProfileSchema = z.object({
   ...IDSchema.shape,
   user: z.string(),
   image: z.string().optional(),
@@ -15,13 +15,4 @@ const userProfileSchema = z.object({
     .optional(),
   dateOfBirth: z.string().optional(),
   ...DateMixin.shape,
-});
-
-export const userProfileImageSchema = z.object({
-  ...userProfileSchema.pick({ 
-    user: true, 
-    image: true, 
-    address: true, 
-    dateOfBirth: true 
-  }).shape,
 });
